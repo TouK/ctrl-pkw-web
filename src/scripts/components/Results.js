@@ -25,7 +25,7 @@ var Bar = React.createClass({
             width: 0,
             height: 0,
             offset: 0
-        }
+        };
     },
 
     render: function() {
@@ -45,7 +45,7 @@ var DataSeries = React.createClass({
         return {
             title: '',
             data: []
-        }
+        };
     },
 
     render: function() {
@@ -62,12 +62,12 @@ var DataSeries = React.createClass({
 
         var yScale = d3.scale.ordinal()
             .domain(d3.range(this.props.data.values.length))
-            .rangeRoundBands([0, this.props.height], .20);
+            .rangeRoundBands([0, this.props.height], 0.20);
 
         var bars = _.map(this.props.data.values, function(point, i) {
             return (
                 <Bar name={props.data.names[i]} height={yScale.rangeBand()} width={xScale(point)} offset={yScale(i)} availableWidth={props.width} color={cScale(i)} key={i} />
-            )
+            );
         });
 
         return (
