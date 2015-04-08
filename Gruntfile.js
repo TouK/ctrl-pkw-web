@@ -1,126 +1,149 @@
 'use strict';
 
 var mountFolder = function (connect, dir) {
-  return connect.static(require('path').resolve(dir));
+    return connect.static(require('path').resolve(dir));
 };
 
 var webpackDistConfig = require('./webpack.dist.config.js'),
     webpackDevConfig = require('./webpack.config.js');
 
 module.exports = function (grunt) {
-  // Let *load-grunt-tasks* require everything
-  require('load-grunt-tasks')(grunt);
 
-  // Read configuration from package.json
-  var pkgConfig = grunt.file.readJSON('package.json');
+    // Let *load-grunt-tasks* require everything
+    require('load-grunt-tasks')(grunt);
 
-  grunt.initConfig({
-    pkg: pkgConfig,
+    // Read configuration from package.json
+    var pkgConfig = grunt.file.readJSON('package.json');
 
-    webpack: {
-      options: webpackDistConfig,
+    grunt.initConfig({
+        pkg: pkgConfig,
 
-      dist: {
-        cache: false
-      }
-    },
+        webpack: {
+            options: webpackDistConfig,
 
-    'webpack-dev-server': {
-      options: {
-        hot: true,
-        port: 8000,
-        webpack: webpackDevConfig,
-        publicPath: '/assets/',
-        contentBase: './<%= pkg.src %>/',
-      },
+            dist: {
+                cache: false
+            }
+        },
 
-      start: {
-        keepAlive: true,
-      }
-    },
+        'webpack-dev-server': {
+            options: {
+                hot: true,
+                port: 8000,
+                webpack: webpackDevConfig,
+                publicPath: '/assets/',
+                contentBase: './<%= pkg.src %>/'
+            },
 
-    connect: {
-      options: {
-        port: 8000
-      },
+            start: {
+                keepAlive: true
+            }
+        },
 
-      dist: {
-        options: {
-          keepalive: true,
-          middleware: function (connect) {
-            return [
-              mountFolder(connect, pkgConfig.dist)
-            ];
-          }
+        connect: {
+
+            options: {
+                port: 8000,
+                hostname: "localhost",
+                base: ".",
+
+                //middleware: function(connect, options) {
+                //    var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
+                //    return [
+                //        proxy,
+                //        connect.static(options.base),
+                //        connect.directory(options.base)
+                //    ];
+                //}
+            },
+
+            //proxies: {
+            //    context: "/api",
+            //    host: "ctrlpkw.pl",
+            //    port: 80,
+            //    changeOrigin: true
+            //},
+
+            dist: {
+                options: {
+                    keepalive: true,
+                    middleware: function (connect) {
+                        return [
+                            mountFolder(connect, pkgConfig.dist)
+                        ];
+                    }
+                }
+            }
+        },
+
+        open: {
+            options: {
+                delay: 500
+            },
+            dev: {
+                path: 'http://localhost:<%= connect.options.port %>/webpack-dev-server/'
+            },
+            dist: {
+                path: 'http://localhost:<%= connect.options.port %>/'
+            }
+        },
+
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
+        },
+
+        copy: {
+            dist: {
+                files: [
+                    // includes files within path
+                    {
+                        flatten: true,
+                        expand: true,
+                        src: ['<%= pkg.src %>/*'],
+                        dest: '<%= pkg.dist %>/',
+                        filter: 'isFile'
+                    },
+                    {
+                        flatten: true,
+                        expand: true,
+                        src: ['<%= pkg.src %>/images/*'],
+                        dest: '<%= pkg.dist %>/images/'
+                    },
+                ]
+            }
+        },
+
+        clean: {
+            dist: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '<%= pkg.dist %>'
+                    ]
+                }]
+            }
         }
-      }
-    },
+    });
 
-    open: {
-      options: {
-        delay: 500
-      },
-      dev: {
-        path: 'http://localhost:<%= connect.options.port %>/webpack-dev-server/'
-      },
-      dist: {
-        path: 'http://localhost:<%= connect.options.port %>/'
-      }
-    },
+    grunt.registerTask('serve', function (target) {
+        if (target === 'dist') {
+            return grunt.task.run(['build', 'open:dist', 'connect:dist']);
+        }
 
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js'
-      }
-    },
+        grunt.task.run([
+            'configureProxies:server',
+            'open:dev',
+            'webpack-dev-server',
+            'connect:livereload',
+            'watch'
+        ]);
+    });
 
-    copy: {
-      dist: {
-        files: [
-          // includes files within path
-          {
-            flatten: true,
-            expand: true,
-            src: ['<%= pkg.src %>/*'],
-            dest: '<%= pkg.dist %>/',
-            filter: 'isFile'
-          },
-          {
-            flatten: true,
-            expand: true,
-            src: ['<%= pkg.src %>/images/*'],
-            dest: '<%= pkg.dist %>/images/'
-          },
-        ]
-      }
-    },
+    grunt.registerTask('test', ['karma']);
 
-    clean: {
-      dist: {
-        files: [{
-          dot: true,
-          src: [
-            '<%= pkg.dist %>'
-          ]
-        }]
-      }
-    }
-  });
+    grunt.registerTask('build', ['clean', 'copy', 'webpack']);
 
-  grunt.registerTask('serve', function (target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'open:dist', 'connect:dist']);
-    }
-
-    grunt.task.run([
-      'open:dev',
-      'webpack-dev-server'
-    ]);
-  });
-
-  grunt.registerTask('test', ['karma']);
-
-  grunt.registerTask('build', ['clean', 'copy', 'webpack']);
-
-  grunt.registerTask('default', []);
+    grunt.registerTask('default', []);
 };

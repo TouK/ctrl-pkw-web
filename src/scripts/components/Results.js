@@ -39,7 +39,7 @@ var Results = React.createClass({
                 data.votesCountPerOption.forEach( function(s) {
                     //console.debug(s);
                     //TODO wyrzucić random
-                    state.data.values.push(Math.random() * 1000000000 + s);
+                    state.data.values.push(Math.random() * 100 + s);
                 });
                 this.setState(state);
             }.bind(this),
@@ -50,7 +50,7 @@ var Results = React.createClass({
     componentDidMount: function() {
         this.fetchOptions();
         this.fetchResults();
-        setInterval(this.fetchResults, 1000);
+        setInterval(this.fetchResults, 60000);
     },
 
     render: function () {

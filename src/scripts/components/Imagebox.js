@@ -8,7 +8,7 @@ var Imagebox = React.createClass({
   render: function () {
     return (
         <div>
-          <img src={this.props.imageURL} />
+          <img width={this.props.width} height={this.props.height} src={this.props.imageURL} />
         </div>
       );
   }
