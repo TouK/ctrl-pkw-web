@@ -15,7 +15,7 @@ var Results = React.createClass({
     fetchOptions: function() {
 
         $.ajax({
-            url: this.props.url + "votings/2010-06-20/ballots/1", dataType: 'json',
+            url: this.props.url + "votings/2015-05-10/ballots/1", dataType: 'json',
             success: function(data) {
                 var state = this.state;
                 state.data.names = [];
@@ -32,7 +32,7 @@ var Results = React.createClass({
     fetchResults: function() {
 
         $.ajax({
-            url: this.props.url + "votings/2010-06-20/ballots/1/result", dataType: 'json', method: 'POST',
+            url: this.props.url + "votings/2015-05-10/ballots/1/result", dataType: 'json', method: 'POST',
             success: function(data) {
                 var state = this.state;
                 state.data.values = [];

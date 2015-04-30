@@ -18,7 +18,10 @@ var ProtocolVerifier = React.createClass({
         $.ajax({
             type: "POST",
             url: this.state.verification,
-            data: 'APPROVAL',
+            headers: {
+                "Authorization":  "Bearer " + this.props.authorization
+            },
+            data: "\"APPROVAL\"",
             contentType: "application/json",
             success: function (data) {
 
@@ -38,7 +41,10 @@ var ProtocolVerifier = React.createClass({
         $.ajax({
             type: "POST",
             url: this.state.verification,
-            data: 'DEPRECATION',
+            headers: {
+                "Authorization":  "Bearer " + this.props.authorization
+            },
+            data: '\"DEPRECATION\"',
             contentType: "application/json",
             success: function (data) {
 
@@ -57,13 +63,19 @@ var ProtocolVerifier = React.createClass({
 
         $.ajax({
             url: this.props.url + "protocols?count=1", dataType: 'json', method: 'GET',
+            headers: {
+                "Authorization":  "Bearer " + this.props.authorization
+            },
             success: function(data) {
 
-                this.state.image = JSONPath.eval(data, '$..links[?(@.rel == "img")].href')[0];
+                this.state.image = JSONPath.eval(data, '$..links[?(@.rel == "images")].href')[0];
                 this.state.verification = JSONPath.eval(data, '$..links[?(@.rel == "verification")].href')[0];
                 this.state.ballot = JSONPath.eval(data, '$..links[?(@.rel == "ballot")].href')[0];
 
                 this.state.reported = false;
+
+                console.log("Authorization: " + this.props.authorization);
+                console.log("Image: " + this.state.image);
 
             }.bind(this),
             error: function(xhr, status, err) { console.error(this.props.url, status, err.toString()); }.bind(this)
@@ -81,7 +93,6 @@ var ProtocolVerifier = React.createClass({
                 <Imagebox width="800" height="600" imageURL={this.state.image} />
                 <input type="button" value="V" onClick={this.reportV}/>
                 <input type="button" value="X" onClick={this.reportX}/>
-
             </div>
         );
     }

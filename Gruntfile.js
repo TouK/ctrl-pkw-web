@@ -45,7 +45,7 @@ module.exports = function (grunt) {
             options: {
                 port: 8000,
                 hostname: "localhost",
-                base: ".",
+                base: "."
 
                 //middleware: function(connect, options) {
                 //    var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
 
             //proxies: {
             //    context: "/api",
-            //    host: "ctrlpkw.pl",
+            //    host: "ctrlpkw.touk.pl",
             //    port: 80,
             //    changeOrigin: true
             //},
