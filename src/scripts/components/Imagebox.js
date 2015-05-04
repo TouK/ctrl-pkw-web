@@ -8,7 +8,9 @@ var Imagebox = React.createClass({
   render: function () {
     return (
         <div>
-          <img width={this.props.width} height={this.props.height} src={this.props.imageURL} />
+          <a target="_blank" href={this.props.imageURL}>
+            <img width={this.props.width} height={this.props.height} src={this.props.imageURL} alt="brak zdjęcia"/>
+          </a>
         </div>
       );
   }

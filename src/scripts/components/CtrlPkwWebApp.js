@@ -17,7 +17,7 @@ var apiURL = 'https://ctrlpkw.touk.pl/api/';
 var CtrlPkwWebApp = React.createClass({
 
     getInitialState: function() {
-        return { authorization: "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwNGZlMThiYS1lYzViLTRlYzEtYTY4ZC1iNTgwZmE4NGQ5NjciLCJpYXQiOjE0MzAzODI3ODksInN1YiI6Imh0dHBzOi8vYXBpLnN0b3JtcGF0aC5jb20vdjEvYWNjb3VudHMvMnVrR2hwRTVza2o2VzZlMTVkUXN4YSIsImV4cCI6MTQzMDY0MTk4OX0.3rAckOMik9-wJdOVjC7gVdmaEPZe00a-7KlNnrB8dkU" };
+        return { authorization: "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2NzBjM2U2MS0zOTcxLTQ0M2EtODM2MS02ODg0ZmIzNzVlZTQiLCJpYXQiOjE0MzA3MjY4MTIsInN1YiI6Imh0dHBzOi8vYXBpLnN0b3JtcGF0aC5jb20vdjEvYWNjb3VudHMvMnVrR2hwRTVza2o2VzZlMTVkUXN4YSIsImV4cCI6MTQzMDk4NjAxMn0.WFk43t3BD01-NeUicAThlbTnUUG1V2_1i1yFUgAI5ek" };
     },
 
     handleAuthorizationChange: function(event) {
@@ -32,7 +32,6 @@ var CtrlPkwWebApp = React.createClass({
             <input type="text" name="authorization" value={this.state.authorization} onChange={this.handleAuthorizationChange} />
         </span>
         <ReactTransitionGroup transitionName="fade">
-          <Imagebox imageURL={imageURL} />
           <Results url={apiURL} />
           <ProtocolVerifier url={apiURL} authorization={this.state.authorization} />
         </ReactTransitionGroup>
