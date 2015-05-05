@@ -136,8 +136,8 @@ var ProtocolVerifier = React.createClass({
                             <Imagebox className="Image" width="320" imageURL={item}/>
                         );
                     }, this)}
-                    <input type="button" value="V" onClick={this.reportV}/>
-                    <input type="button" value="X" onClick={this.reportX}/>
+                    <input className="tak" type="button" value="TAK" onClick={this.reportV}/>
+                    <input className="nie" type="button" value="NIE" onClick={this.reportX}/>
                 </div>
 
                 <table className="Protocol">
