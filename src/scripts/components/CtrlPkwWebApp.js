@@ -27,7 +27,7 @@ var CtrlPkwWebApp = React.createClass({
   render: function() {
     return (
       <div className='main'>
-        <span>
+        <span className="authorization">
             Authorization from Cookie:
             <input type="text" name="authorization" value={this.state.authorization} onChange={this.handleAuthorizationChange} />
         </span>
