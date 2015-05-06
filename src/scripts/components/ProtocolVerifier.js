@@ -1,11 +1,37 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Imagebox = require('./Imagebox');
 var JSONPath = require('JSONPath');
+var Slider = require('react-slick/dist/react-slick');
 var $ = require('jquery');
 
 require('styles/ProtocolVerifier.less');
+
+var ImageSlider = React.createClass({
+
+    render: function () {
+
+        var settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        };
+
+        return (
+            <Slider {...settings}>
+                <div><h3>1</h3></div>
+                <div><h3>2</h3></div>
+                <div><h3>3</h3></div>
+                <div><h3>4</h3></div>
+                <div><h3>5</h3></div>
+                <div><h3>6</h3></div>
+            </Slider>
+        );
+    }
+});
 
 var ProtocolVerifier = React.createClass({
 
@@ -42,7 +68,7 @@ var ProtocolVerifier = React.createClass({
                 }
                 this.setState(state);
             }.bind(this)
-        })
+        });
     },
 
     reportV: function() {
@@ -119,7 +145,16 @@ var ProtocolVerifier = React.createClass({
         });
     },
 
+    //componentDidUpdate: function() {
+    //    $('.Images').slick({
+    //        centerMode: true,
+    //        centerPadding: '60px',
+    //        slidesToShow: 3
+    //    });
+    //},
+
     componentDidMount: function() {
+
         this.fetchProtocol();
     },
 
@@ -148,7 +183,7 @@ var ProtocolVerifier = React.createClass({
                     <tr><td>Liczba wyborców, którym wydano karty</td><td className="count">{this.state.ballotsGivenCount}</td></tr>
                     <tr><td>Liczba oddanych głosów</td><td className="count">{this.state.votesCastCount}</td></tr>
                     <tr><td>Liczba głosów ważnych</td><td className="count">{this.state.votesValidCount}</td></tr>
-                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr><td colSpan="2">&nbsp;</td></tr>
                     {
                         this.state.options.map(function(item, i) {
                             var votes = this.state.ballotResult.votesCountPerOption[i];
