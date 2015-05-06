@@ -128,19 +128,22 @@ var ProtocolVerifier = React.createClass({
             <div className="ProtocolVerifier">
 
                 <h1>Czy ten protokół jest poprawny ?</h1>
-
-                <div className="Images">
+				<div className="button-container">
+					<input className="tak" type="button" value="TAK" onClick={this.reportV}/>
+					<input className="nie" type="button" value="NIE" onClick={this.reportX}/>
+                </div>
+				<div className="Images">
                     {this.state.imageUrls.map(function(item, i) {
                         console.log("Rendering image: " + item);
                         return (
                             <Imagebox className="Image" width="320" imageURL={item}/>
                         );
                     }, this)}
-                    <input className="tak" type="button" value="TAK" onClick={this.reportV}/>
-                    <input className="nie" type="button" value="NIE" onClick={this.reportX}/>
+                   
                 </div>
 
                 <table className="Protocol">
+					
                     <tr><td>Liczba wyborców uprawnionych</td><td className="count">{this.state.votersEntitledCount}</td></tr>
                     <tr><td>Liczba wyborców, którym wydano karty</td><td className="count">{this.state.ballotsGivenCount}</td></tr>
                     <tr><td>Liczba oddanych głosów</td><td className="count">{this.state.votesCastCount}</td></tr>
