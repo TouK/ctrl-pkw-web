@@ -63,20 +63,54 @@ tr:nth-child(even) {
 }
 
 .Images a img {
-	max-height: 526px;
+	max-height: 720px;
 }
 
 .ProtocolVerifier .Protocol {
 	float: right;
 }
 
-.Images input[type="button"] {
+.ProtocolVerifier h1 {
+	width: 70%;
+	margin: 15px 0;
+	display: inline-block;
+	
+}
+
+.button-container input[type="button"] {
 	box-shadow: none;
 	outline: none;
 	padding: 15px 20px;
 	font-weight: 900;
 	margin: 5px;
 	border-radius: 4px;
+}
+
+.button-container {
+	display: inline-block;
+	width: 30%;
+	text-align: center;
+}
+
+.Images {
+	width: 70%;
+}
+
+.Protocol {
+	width: 30%
+}
+
+
+.Images a img {
+	width: auto;
+	height: 90vh;
+	display: inline-block;
+}
+
+.Images .image-container {
+	display: inline-block;
+	float: left;
+	padding: 10px 5px;
 }
 
 .nie {
