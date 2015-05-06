@@ -1,10 +1,15 @@
 'use strict';
 
-var React = require('react/addons');
-var BarChart = require('./BarChart');
-var $ = require('jquery');
+var React              = require('react/addons');
+var BarChart           = require('./BarChart');
+var $                  = require('jquery');
+var Router             = require('react-router');
+var Link               = Router.Link;
+var RouteHandler       = Router.RouteHandler;
 
 require('styles/Results.less');
+
+var apiURL = 'https://ctrlpkw.touk.pl/api/';
 
 var Results = React.createClass({
 
@@ -15,13 +20,13 @@ var Results = React.createClass({
     fetchOptions: function() {
 
         $.ajax({
-            url: this.props.url + "votings/2015-05-10/ballots/1", dataType: 'json',
+            url: apiURL + "votings/2015-05-10/ballots/1",
+            dataType: 'json',
             success: function(data) {
                 var state = this.state;
                 state.data.names = [];
                 data.options.forEach( function(s) {
                     state.data.names.push(s);
-                    //console.debug(s);
                 });
                 this.setState(state);
             }.bind(this),
@@ -32,14 +37,14 @@ var Results = React.createClass({
     fetchResults: function() {
 
         $.ajax({
-            url: this.props.url + "votings/2015-05-10/ballots/1/result", dataType: 'json', method: 'POST',
+            url: apiURL + "votings/2015-05-10/ballots/1/result",
+            dataType: 'json',
+            method: 'POST',
             success: function(data) {
                 var state = this.state;
                 state.data.values = [];
                 data.votesCountPerOption.forEach( function(s) {
-                    //console.debug(s);
-                    //TODO wyrzucić random
-                    state.data.values.push(Math.random() * 100 + s);
+                    state.data.values.push(1 + s);
                 });
                 this.setState(state);
             }.bind(this),
@@ -55,9 +60,12 @@ var Results = React.createClass({
 
     render: function () {
       return (
-          <div className="Results">
-            <h1>Wyniki</h1>
-            <BarChart width="800" height="320" data={this.state.data}/>
+          <div className='main'>
+
+              <div className="Results">
+                <h1>Wyniki</h1>
+                <BarChart width="800" height="320" data={this.state.data}/>
+              </div>
           </div>
         );
     }

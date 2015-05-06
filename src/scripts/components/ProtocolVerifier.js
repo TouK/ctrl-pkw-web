@@ -1,37 +1,37 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Imagebox = require('./Imagebox');
 var JSONPath = require('JSONPath');
-//var Slider = require('react-slick');
+var Slider = require('react-slick/dist/react-slick');
 var $ = require('jquery');
 
 require('styles/ProtocolVerifier.less');
 
-//var ImageSlider = React.createClass({
-//
-//    render: function () {
-//
-//        var settings = {
-//            dots: true,
-//            infinite: true,
-//            speed: 500,
-//            slidesToShow: 1,
-//            slidesToScroll: 1
-//        };
-//
-//        return (
-//            <Slider {...settings}>
-//                <div><h3>1</h3></div>
-//                <div><h3>2</h3></div>
-//                <div><h3>3</h3></div>
-//                <div><h3>4</h3></div>
-//                <div><h3>5</h3></div>
-//                <div><h3>6</h3></div>
-//            </Slider>
-//        );
-//    }
-//});
+var ImageSlider = React.createClass({
+
+    render: function () {
+
+        var settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        };
+
+        return (
+            <Slider {...settings}>
+                <div><h3>1</h3></div>
+                <div><h3>2</h3></div>
+                <div><h3>3</h3></div>
+                <div><h3>4</h3></div>
+                <div><h3>5</h3></div>
+                <div><h3>6</h3></div>
+            </Slider>
+        );
+    }
+});
 
 var ProtocolVerifier = React.createClass({
 
@@ -145,16 +145,17 @@ var ProtocolVerifier = React.createClass({
         });
     },
 
+    //componentDidUpdate: function() {
+    //    $('.Images').slick({
+    //        centerMode: true,
+    //        centerPadding: '60px',
+    //        slidesToShow: 3
+    //    });
+    //},
+
     componentDidMount: function() {
 
         this.fetchProtocol();
-
-        $('.Images').slick({
-            centerMode: true,
-            centerPadding: '60px',
-            slidesToShow: 3
-        });
-
     },
 
     render: function () {
