@@ -20,11 +20,12 @@ var apiURL = 'https://ctrlpkw.touk.pl/api/';
 var Verification = React.createClass({
 
     getInitialState: function() {
-        return { authorization: "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2NzBjM2U2MS0zOTcxLTQ0M2EtODM2MS02ODg0ZmIzNzVlZTQiLCJpYXQiOjE0MzA3MjY4MTIsInN1YiI6Imh0dHBzOi8vYXBpLnN0b3JtcGF0aC5jb20vdjEvYWNjb3VudHMvMnVrR2hwRTVza2o2VzZlMTVkUXN4YSIsImV4cCI6MTQzMDk4NjAxMn0.WFk43t3BD01-NeUicAThlbTnUUG1V2_1i1yFUgAI5ek" };
+        return { authorization: "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNmFiNDNjNi1jYjA4LTQwOTEtOWRjNy1mZTQ1MWNlZWNhNGUiLCJpYXQiOjE0MzEwODU1NDcsInN1YiI6Imh0dHBzOi8vYXBpLnN0b3JtcGF0aC5jb20vdjEvYWNjb3VudHMvMnVrR2hwRTVza2o2VzZlMTVkUXN4YSIsImV4cCI6MTQzMTM0NDc0N30.zq8UGoEEAH9jmim7IZUPueXykcRRzqGD6dxha_d-1kY" };
     },
 
     handleAuthorizationChange: function(event) {
         this.setState( { authorization: event.target.value } );
+        this.refs.protocolVerifier.fetchProtocol();
     },
 
   render: function() {
@@ -37,7 +38,7 @@ var Verification = React.createClass({
         </span>
 
         <ReactTransitionGroup transitionName="fade">
-          <ProtocolVerifier url={apiURL} authorization={this.state.authorization} />
+          <ProtocolVerifier ref="protocolVerifier" url={apiURL} authorization={this.state.authorization} />
         </ReactTransitionGroup>
 
       </div>

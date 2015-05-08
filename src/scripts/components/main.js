@@ -10,34 +10,61 @@ var DefaultRoute       = Router.DefaultRoute;
 var Link               = Router.Link;
 var RouteHandler       = Router.RouteHandler;
 
-var content = document.getElementById('content');
+var content = document.getElementById('ctrlpkw_content_');
 
-var App = React.createClass({
-    render: function () {
-        return (
-            <div>
-                <header>
-                    <ul>
-                        <li><Link to="results">Wyniki</Link></li>
-                        <li><Link to="verification">Weryfikacja</Link></li>
-                    </ul>
-                </header>
+if (content) {
 
-                {/* this is the important part */}
-                <RouteHandler/>
-            </div>
-        );
-    }
-});
+    var App = React.createClass({
+        render: function () {
+            return (
+                <div>
+                    <header>
+                        <ul>
+                            <li><Link to="results">Wyniki</Link></li>
+                            <li><Link to="verification">Weryfikacja</Link></li>
+                        </ul>
+                    </header>
 
-var Routes = (
-    <Route path="/" handler={App} >
-        <Route name="verification" handler={Verification}/>
-        <Route name="results" handler={Results}/>
-        <DefaultRoute handler={Verification}/>
-    </Route>
-);
+                    {/* this is the important part */}
+                    <RouteHandler/>
+                </div>
+            );
+        }
+    });
 
-Router.run(Routes, function (Handler) {
-  React.render(<Handler/>, content);
-});
+    var Routes = (
+        <Route path="/" handler={App}>
+            <Route name="verification" handler={Verification}/>
+            <Route name="results" handler={Results}/>
+            <DefaultRoute handler={Verification}/>
+        </Route>
+    );
+
+    Router.run(Routes, function (Handler) {
+        React.render(<Handler/>, content);
+    });
+}
+
+var content_results = document.getElementById('ctrlpkw_results_');
+
+if (content_results) {
+
+    var App2 = React.createClass({
+        render: function () {
+            return (
+                <div>
+                    <RouteHandler/>
+                </div>
+            );
+        }
+    });
+
+    var Routes2 = (
+        <Route path="/" handler={Results}/>
+    );
+
+    Router.run(Routes2, function (Handler) {
+        React.render(<Handler/>, content_results);
+    });
+
+}

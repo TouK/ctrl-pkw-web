@@ -1,37 +1,28 @@
 'use strict';
 
+var $ = require('jquery');
 var React = require('react');
+var ReactA = require('react-addons');
 var Imagebox = require('./Imagebox');
 var JSONPath = require('JSONPath');
-var Slider = require('react-slick/dist/react-slick');
-var $ = require('jquery');
+//var ImageGallery = require('react-image-gallery');
 
 require('styles/ProtocolVerifier.less');
 
-var ImageSlider = React.createClass({
-
-    render: function () {
-
-        var settings = {
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1
-        };
-
-        return (
-            <Slider {...settings}>
-                <div><h3>1</h3></div>
-                <div><h3>2</h3></div>
-                <div><h3>3</h3></div>
-                <div><h3>4</h3></div>
-                <div><h3>5</h3></div>
-                <div><h3>6</h3></div>
-            </Slider>
-        );
+var images = [
+    {
+        original: 'http://lorempixel.com/1000/600/nature/1/',
+        thumbnail: 'http://lorempixel.com/250/150/nature/1/'
+    },
+    {
+        original: 'http://lorempixel.com/1000/600/nature/2/',
+        thumbnail: 'http://lorempixel.com/250/150/nature/2/'
+    },
+    {
+        original: 'http://lorempixel.com/1000/600/nature/3/',
+        thumbnail: 'http://lorempixel.com/250/150/nature/3/'
     }
-});
+];
 
 var ProtocolVerifier = React.createClass({
 
@@ -111,6 +102,12 @@ var ProtocolVerifier = React.createClass({
         });
     },
 
+    componentWillReceiveProps: function(nextProps) {
+        if (nextProps.authorization && nextProps.authorization != this.props.authorization) {
+            this.fetchProtocol();
+        }
+    },
+
     fetchProtocol: function() {
 
         $.ajax({
@@ -145,16 +142,7 @@ var ProtocolVerifier = React.createClass({
         });
     },
 
-    //componentDidUpdate: function() {
-    //    $('.Images').slick({
-    //        centerMode: true,
-    //        centerPadding: '60px',
-    //        slidesToShow: 3
-    //    });
-    //},
-
     componentDidMount: function() {
-
         this.fetchProtocol();
     },
 
@@ -167,18 +155,19 @@ var ProtocolVerifier = React.createClass({
 					<input className="tak" type="button" value="TAK" onClick={this.reportV}/>
 					<input className="nie" type="button" value="NIE" onClick={this.reportX}/>
                 </div>
-				<div className="Images">
+
+                <div className="Images">
                     {this.state.imageUrls.map(function(item, i) {
                         console.log("Rendering image: " + item);
                         return (
                             <Imagebox className="Image" width="320" imageURL={item}/>
                         );
                     }, this)}
-                   
+
                 </div>
 
                 <table className="Protocol">
-					
+
                     <tr><td>Liczba wyborców uprawnionych</td><td className="count">{this.state.votersEntitledCount}</td></tr>
                     <tr><td>Liczba wyborców, którym wydano karty</td><td className="count">{this.state.ballotsGivenCount}</td></tr>
                     <tr><td>Liczba oddanych głosów</td><td className="count">{this.state.votesCastCount}</td></tr>
