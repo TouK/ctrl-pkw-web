@@ -20,7 +20,7 @@ var apiURL = 'https://ctrlpkw.touk.pl/api/';
 var Verification = React.createClass({
 
     getInitialState: function() {
-        return { authorization: "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNmFiNDNjNi1jYjA4LTQwOTEtOWRjNy1mZTQ1MWNlZWNhNGUiLCJpYXQiOjE0MzEwODU1NDcsInN1YiI6Imh0dHBzOi8vYXBpLnN0b3JtcGF0aC5jb20vdjEvYWNjb3VudHMvMnVrR2hwRTVza2o2VzZlMTVkUXN4YSIsImV4cCI6MTQzMTM0NDc0N30.zq8UGoEEAH9jmim7IZUPueXykcRRzqGD6dxha_d-1kY" };
+        return { authorization: "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkYjE5NzhjZC0yMDkyLTRiNTItOGEzOC01ZjcwZDM4YWJhM2EiLCJpYXQiOjE0MzEyODcyMzYsInN1YiI6Imh0dHBzOi8vYXBpLnN0b3JtcGF0aC5jb20vdjEvYWNjb3VudHMvMnVrR2hwRTVza2o2VzZlMTVkUXN4YSIsImV4cCI6MTQzMTU0NjQzNn0.LrlPAkSAEa9nKbJvfcXzepP3Z4IHPPodfOFqLh7m2gU" };
     },
 
     handleAuthorizationChange: function(event) {

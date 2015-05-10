@@ -27,7 +27,7 @@ var images = [
 var ProtocolVerifier = React.createClass({
 
     getInitialState: function() {
-        return { options: [], imageUrls: [], verificationUrl: null, ballotResult: null };
+        return { options: [], imageUrls: [], verificationUrl: null, ballotResult: null, communityCode: null, wardNo: null };
     },
 
     fetchBallot: function(ballotUrl) {
@@ -122,6 +122,9 @@ var ProtocolVerifier = React.createClass({
 
                 var state = this.state;
 
+                state.communityCode = JSONPath.eval(data, '$..communityCode');
+                state.wardNo = JSONPath.eval(data, '$..wardNo');
+
                 state.verificationUrl = JSONPath.eval(data, '$..links[?(@.rel == "verification")].href')[0];
                 state.ballotResult = JSONPath.eval(data, '$..ballotResult')[0];
                 state.votersEntitledCount = JSONPath.eval(data, '$..ballotResult.votersEntitledCount')[0];
@@ -168,6 +171,9 @@ var ProtocolVerifier = React.createClass({
 
                 <table className="Protocol">
 
+                    <tr><td>Numer obwodu</td><td className="count">{this.state.wardNo}</td></tr>
+                    <tr><td>Numer gminy</td><td className="count">{this.state.communityCode}</td></tr>
+                    <tr><td colSpan="2">&nbsp;</td></tr>
                     <tr><td>Liczba wyborców uprawnionych</td><td className="count">{this.state.votersEntitledCount}</td></tr>
                     <tr><td>Liczba wyborców, którym wydano karty</td><td className="count">{this.state.ballotsGivenCount}</td></tr>
                     <tr><td>Liczba oddanych głosów</td><td className="count">{this.state.votesCastCount}</td></tr>
