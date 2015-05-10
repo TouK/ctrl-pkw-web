@@ -52,6 +52,8 @@ var Results = React.createClass({
                 state.data.votersEntitledCount = data.votersEntitledCount;
                 state.data.ballotsGivenCount = data.ballotsGivenCount;
 
+                state.data.includedWardsCount = data.includedWardsCount;
+
                 this.setState(state);
             }.bind(this),
             error: function(xhr, status, err) { console.error(this.props.url, status, err.toString()); }.bind(this)
