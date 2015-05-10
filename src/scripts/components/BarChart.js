@@ -105,7 +105,7 @@ var Attendance = React.createClass({
 
         return (
             <div className='list attendance'>
-                <Bar name='Frekwencja' width={val(data.ballotsGivenCount)} value={val(data.ballotsGivenCount)} color={colorbrewer.Paired[3][2]}/>
+                <Bar name='Frekwencja' width={val(data.ballotsGivenCount)} value={val(data.ballotsGivenCount)} color={colorbrewer.Paired[11][0]}/>
             </div>
         );
     }
@@ -129,7 +129,7 @@ var Validity = React.createClass({
 
         return (
             <div className='list validity'>
-                <Bar name='Liczba głosów ważnych' width={val(data.votesValidCount)} value={val(data.votesValidCount)} color={colorbrewer.Paired[3][1]}/>
+                <Bar name='Liczba głosów ważnych' width={val(data.votesValidCount)} value={val(data.votesValidCount)} color={colorbrewer.Paired[11][7]}/>
             </div>
         );
     }
