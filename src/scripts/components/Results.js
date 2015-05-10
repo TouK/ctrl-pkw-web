@@ -20,7 +20,7 @@ var Results = React.createClass({
     fetchOptions: function() {
 
         $.ajax({
-            url: apiURL + "votings/2010-06-20/ballots/1",
+            url: apiURL + "votings/2015-05-10/ballots/1",
             dataType: 'json',
             success: function(data) {
                 var state = this.state;
@@ -38,7 +38,7 @@ var Results = React.createClass({
     fetchResults: function() {
 
         $.ajax({
-            url: apiURL + "votings/2010-06-20/results/ballots/1",
+            url: apiURL + "votings/2015-05-10/results/ballots/1",
             dataType: 'json',
             success: function(data) {
                 var state = this.state;
