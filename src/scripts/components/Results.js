@@ -66,7 +66,7 @@ var Results = React.createClass({
 
     render: function () {
       return (
-          <div className="scores">
+          <div className="election-scores">
             <BarChart data={this.state.data}/>
           </div>
         );

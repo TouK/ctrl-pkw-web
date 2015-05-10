@@ -40,11 +40,11 @@ var Bar = React.createClass({
         };
 
         return (
-            <li>
+            <div className='item'>
                 <div className="name">{this.props.name}</div>
                 <div className="value">{percentage(this.props.value)}</div>
                 <div className="bar"><div className='value' style={barStyle}/></div>
-            </li>
+            </div>
         );
     }
 });
@@ -82,7 +82,7 @@ var DataSeries = React.createClass({
         });
 
         return (
-            <ul className='data-series'>{bars}</ul>
+            <div className='list data-series'>{bars}</div>
         );
     }
 });
@@ -104,9 +104,9 @@ var Attendance = React.createClass({
             .range([0, 1]);
 
         return (
-            <ul className='attendance'>
+            <div className='list attendance'>
                 <Bar name='Frekwencja' width={val(data.ballotsGivenCount)} value={val(data.ballotsGivenCount)} color={colorbrewer.Paired[3][2]}/>
-            </ul>
+            </div>
         );
     }
 });
@@ -128,9 +128,9 @@ var Validity = React.createClass({
             .range([0, 1]);
 
         return (
-            <ul className='validity'>
+            <div className='list validity'>
                 <Bar name='Liczba głosów ważnych' width={val(data.votesValidCount)} value={val(data.votesValidCount)} color={colorbrewer.Paired[3][1]}/>
-            </ul>
+            </div>
         );
     }
 });
@@ -139,7 +139,7 @@ var BarChart = React.createClass({
     render: function() {
         return (
             <Chart>
-                <h1>{this.props.data.title}</h1>
+                <div className='title'>{this.props.data.title}</div>
                 <DataSeries data={this.props.data}/>
                 <Validity data={this.props.data}/>
                 <Attendance data={this.props.data}/>

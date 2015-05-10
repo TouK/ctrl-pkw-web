@@ -1,4 +1,4 @@
-.scores {
+.election-scores {
     position: relative;
     margin: .5em;
     padding: 1.5em;
@@ -24,31 +24,34 @@
     -moz-border-radius: .3em;
     border-radius: .3em;
 
-    -webkit-animation: fadeIn .5s ease-in-out;
-    animation: fadeIn .5s ease-in-out;
+    -webkit-animation: es_fadeIn .5s ease-in-out;
+    animation: es_fadeIn .5s ease-in-out;
 
-    .chart {
+    & > .chart {
         position: relative;
-        -webkit-animation: fadeIn .5s ease-in-out;
-        animation: fadeIn .5s ease-in-out;
+        -webkit-animation: es_fadeIn .5s ease-in-out;
+        animation: es_fadeIn .5s ease-in-out;
 
-        h1 {
+        .title {
             font-weight: bold;
             opacity: .5;
             margin: .4em 0 .65em 0;
             font-size: 2em;
             line-height: 1.2em;
         }
-        ul {
-            list-style: none;
+        .list {
             padding: 0;
             margin: 0;
-            li {
+            .item {
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
                 display: flex;
                 align-content: stretch;
                 line-height: 2.2em;
 
-                &+li {
+                &+.item {
                     margin-top: .5em;
                 }
                 &>.name {
@@ -64,6 +67,10 @@
                     font-weight: bold;
                 }
                 &>.bar {
+                    -webkit-box-flex: 1;
+                    -moz-box-flex:  1;
+                    -webkit-flex:  1;
+                    -ms-flex:  1;
                     flex: 1;
                     height: 2em;
                     display: flex;
@@ -79,6 +86,7 @@
                         -moz-box-shadow: .05em 0.05em 0.1em rgba(0, 0, 0, 0.3);
                         box-shadow: .05em 0.05em 0.1em rgba(0, 0, 0, 0.3);
                         width: 0;
+                        height: 100%;
                     }
                 }
             }
@@ -86,7 +94,7 @@
                 min-height: (10 * 2em + 9 * .5em + .25em);
             }
             &.validity, &.attendance {
-                li {
+                .item {
                     display: block;
                     &>.name {
                         font-weight: bold;
@@ -110,7 +118,7 @@
             }
         }
     }
-    .credits {
+    & > .credits {
         -webkit-transition: all .5s;
         -moz-transition: all .5s;
         -ms-transition: all .5s;
@@ -157,11 +165,11 @@
     }
 }
 
-@-webkit-keyframes fadeIn {
+@-webkit-keyframes es_fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
 }
-@keyframes fadeIn {
+@keyframes es_fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
 }
