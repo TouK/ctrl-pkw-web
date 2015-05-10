@@ -112,13 +112,16 @@ var ProtocolVerifier = React.createClass({
 
         $.ajax({
 
-            url: this.props.url + "protocols?count=1", dataType: 'json', method: 'GET',
+            url: this.props.url + "protocols?count=100", dataType: 'json', method: 'GET',
 
             headers: {
                 "Authorization":  "Bearer " + this.props.authorization
             },
 
             success: function(data) {
+
+                console.log(data.length);
+                data = data[Math.floor((Math.random() * data.length) + 1)];
 
                 var state = this.state;
 
@@ -134,6 +137,10 @@ var ProtocolVerifier = React.createClass({
 
                 this.fetchImageUrls(JSONPath.eval(data, '$..links[?(@.rel == "images")].href')[0]);
                 this.fetchBallot(JSONPath.eval(data, '$..links[?(@.rel == "ballot")].href')[0]);
+
+                if (this.state.imageUrls.length == 0) {
+                    this.fetchProtocol();
+                }
 
                 this.setState(state);
 
