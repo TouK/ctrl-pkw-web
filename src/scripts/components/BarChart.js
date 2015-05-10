@@ -135,14 +135,43 @@ var Validity = React.createClass({
     }
 });
 
+var Included = React.createClass({
+
+    getDefaultProps: function() {
+        return {
+            data: []
+        };
+    },
+
+    render: function() {
+
+        var data = this.props.data;
+
+        var val = d3.scale.linear()
+            .domain([0, 27816])
+            .range([0, 1]);
+
+        var includedWardsCount = 'Liczba zweryfikowanych komisji (' + data.includedWardsCount + '/27816)';
+
+        return (
+            <div className='list included'>
+                <Bar name={includedWardsCount} width={val(data.includedWardsCount)} value={val(data.includedWardsCount)} color={colorbrewer.Paired[11][2]}/>
+            </div>
+        );
+    }
+});
+
 var BarChart = React.createClass({
     render: function() {
         return (
             <Chart>
                 <div className='title'>{this.props.data.title}</div>
                 <DataSeries data={this.props.data}/>
-                <Validity data={this.props.data}/>
-                <Attendance data={this.props.data}/>
+                <div className='other'>
+                    <Validity data={this.props.data}/>
+                    <Attendance data={this.props.data}/>
+                    <Included data={this.props.data}/>
+                </div>
                 <div className='credits'>
                     <div className='logo'/>
                     <div className='logo2'/>
