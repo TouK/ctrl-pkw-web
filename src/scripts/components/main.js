@@ -49,22 +49,15 @@ var content_results = document.getElementById('ctrlpkw_results_');
 
 if (content_results) {
 
-    var App2 = React.createClass({
-        render: function () {
-            return (
-                <div>
-                    <RouteHandler/>
-                </div>
-            );
-        }
-    });
+    var el = document.createElement('div');
+    content_results.parentNode.insertBefore(el, content_results);
 
     var Routes2 = (
         <Route path="/" handler={Results}/>
     );
 
     Router.run(Routes2, function (Handler) {
-        React.render(<Handler/>, content_results);
+        React.render(<Handler/>, el);
     });
 
 }

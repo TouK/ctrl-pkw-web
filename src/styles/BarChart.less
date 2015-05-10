@@ -1,3 +1,167 @@
-.Chart {
-  border: 1px dashed #f00;
+.scores {
+    position: relative;
+    margin: .5em;
+    padding: 1.5em;
+    font-size: 10px;
+    background: rgb(229,229,229); /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2U1ZTVlNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmOWY5ZjkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  rgba(229,229,229,1) 0%, rgba(249,249,249,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(229,229,229,1)), color-stop(100%,rgba(249,249,249,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(229,229,229,1) 0%,rgba(249,249,249,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(229,229,229,1) 0%,rgba(249,249,249,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(229,229,229,1) 0%,rgba(249,249,249,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(229,229,229,1) 0%,rgba(249,249,249,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#f9f9f9',GradientType=0 ); /* IE6-8 */
+
+    border: 1px solid #eee;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    -webkit-box-shadow: 0 0 .2em rgba(0,0,0,.2);
+    -moz-box-shadow: 0 0 .2em rgba(0,0,0,.2);
+    box-shadow: 0 0 .2em rgba(0,0,0,.2);
+    -webkit-border-radius: .3em;
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+
+    -webkit-animation: fadeIn .5s ease-in-out;
+    animation: fadeIn .5s ease-in-out;
+
+    .chart {
+        position: relative;
+        -webkit-animation: fadeIn .5s ease-in-out;
+        animation: fadeIn .5s ease-in-out;
+
+        h1 {
+            font-weight: bold;
+            opacity: .5;
+            margin: .4em 0 .65em 0;
+            font-size: 2em;
+            line-height: 1.2em;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            li {
+                display: flex;
+                align-content: stretch;
+                line-height: 2.2em;
+
+                &+li {
+                    margin-top: .5em;
+                }
+                &>.name {
+                    width: 15em;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                &>.value {
+                    margin: 0 1em;
+                    text-align: right;
+                    width: 3.5em;
+                    font-weight: bold;
+                }
+                &>.bar {
+                    flex: 1;
+                    height: 2em;
+                    display: flex;
+                    align-content: stretch;
+                    background: rgba(255,255,255,.3);
+                    &>.value {
+                        -webkit-transition: all .5s;
+                        -moz-transition: all .5s;
+                        -ms-transition: all .5s;
+                        -o-transition: all .5s;
+                        transition: all .5s;;
+                        -webkit-box-shadow: .05em 0.05em 0.1em rgba(0, 0, 0, 0.3);
+                        -moz-box-shadow: .05em 0.05em 0.1em rgba(0, 0, 0, 0.3);
+                        box-shadow: .05em 0.05em 0.1em rgba(0, 0, 0, 0.3);
+                        width: 0;
+                    }
+                }
+            }
+            &.data-series {
+                min-height: (10 * 2em + 9 * .5em + .25em);
+            }
+            &.validity, &.attendance {
+                li {
+                    display: block;
+                    &>.name {
+                        font-weight: bold;
+                        opacity: .5;
+                        margin: .8em 0 .2em 0;
+                        font-size: 1.4em;
+                        line-height: 1.2em;
+                        width: 100%;
+                    }
+                    &>.value {
+                        text-align: center;
+                        width: 100%;
+                        position: absolute;
+                        margin: 0;
+                        line-height: 2.2em;
+                    }
+                    &>.bar {
+                        &>.value {}
+                    }
+                }
+            }
+        }
+    }
+    .credits {
+        -webkit-transition: all .5s;
+        -moz-transition: all .5s;
+        -ms-transition: all .5s;
+        -o-transition: all .5s;
+        transition: all .5s;;
+        text-align: right;
+        -webkit-filter: grayscale(1);
+        opacity: .3;
+        &:hover {
+            opacity: 1;
+            -webkit-filter: grayscale(0);
+        }
+        .logo, .logo2 {
+            display: inline-block;
+            margin: 0;
+        }
+        .logo {
+            background: url('../images/logo.png') no-repeat top right;
+            background-size: 60px;
+            width: 60px;
+            height: 15px;
+            margin-bottom: -1px;
+            margin-top: 5px;
+            margin-right: 4px;
+        }
+        .logo2 {
+            background: url('https://touk.pl/static/images/touk-logo.png') no-repeat top right;
+            background-size: 60px;
+            padding-right: 60px;
+            text-align: right;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 7px;
+            line-height: 7px;
+            padding-top: 28px;
+            color: rgba(0,0,0,.5);
+            margin-right: -7px;
+            margin-bottom: -2px;
+            margin-top: -20px;
+            &::before {
+                content: "z dumą prezentowany przez";
+            }
+        }
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }

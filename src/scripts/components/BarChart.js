@@ -14,9 +14,9 @@ require('styles/BarChart.less');
 var Chart = React.createClass({
     render: function() {
         return (
-            <svg className="chart" xmlns="http://www.w3.org/2000/svg" width={this.props.width} height={this.props.height}>
+            <div className="chart">
                 {this.props.children}
-            </svg>
+            </div>
         );
     }
 });
@@ -26,17 +26,25 @@ var Bar = React.createClass({
     getDefaultProps: function() {
         return {
             width: 0,
-            height: 0,
-            offset: 0
+            value: 0
         };
     },
 
     render: function() {
+
+        var percentage = d3.format(".1%");
+
+        var barStyle = {
+            backgroundColor: this.props.color,
+            width: percentage(this.props.width)
+        };
+
         return (
-            <g>
-                <text x="5" y={this.props.offset + this.props.height - 2} className="label">{this.props.name}</text>
-                <rect fill={this.props.color} width={this.props.width} height={this.props.height} y={this.props.offset} x={this.props.availableWidth / 3} />
-            </g>
+            <li>
+                <div className="name">{this.props.name}</div>
+                <div className="value">{percentage(this.props.value)}</div>
+                <div className="bar"><div className='value' style={barStyle}/></div>
+            </li>
         );
     }
 });
@@ -57,24 +65,72 @@ var DataSeries = React.createClass({
 
         var cScale = d3.scale.ordinal()
             .domain(d3.range(this.props.data.values.length))
-            .range(colorbrewer.RdBu[9]);
+            .range(colorbrewer.Paired[d3.min([this.props.data.values.length,11])]);
 
         var xScale = d3.scale.linear()
             .domain([0, d3.max(this.props.data.values)])
-            .range([0, this.props.width]);
+            .range([0, 1]);
 
-        var yScale = d3.scale.ordinal()
-            .domain(d3.range(this.props.data.values.length))
-            .rangeRoundBands([0, this.props.height], 0.20);
+        var val = d3.scale.linear()
+            .domain([0, d3.sum(this.props.data.values)])
+            .range([0, 1]);
 
         var bars = _.map(this.props.data.values, function(point, i) {
             return (
-                <Bar name={props.data.names[i]} height={yScale.rangeBand()} width={xScale(point)} offset={yScale(i)} availableWidth={props.width} color={cScale(i)} key={i} />
+                <Bar name={props.data.names[i]} width={xScale(point)} value={val(point)} color={cScale(i)}/>
             );
         });
 
         return (
-            <g>{bars}</g>
+            <ul className='data-series'>{bars}</ul>
+        );
+    }
+});
+
+var Attendance = React.createClass({
+
+    getDefaultProps: function() {
+        return {
+            data: []
+        };
+    },
+
+    render: function() {
+
+        var data = this.props.data;
+
+        var val = d3.scale.linear()
+            .domain([0, data.votersEntitledCount])
+            .range([0, 1]);
+
+        return (
+            <ul className='attendance'>
+                <Bar name='Frekwencja' width={val(data.ballotsGivenCount)} value={val(data.ballotsGivenCount)} color={colorbrewer.Paired[3][2]}/>
+            </ul>
+        );
+    }
+});
+
+var Validity = React.createClass({
+
+    getDefaultProps: function() {
+        return {
+            data: []
+        };
+    },
+
+    render: function() {
+
+        var data = this.props.data;
+
+        var val = d3.scale.linear()
+            .domain([0, data.votesCastCount])
+            .range([0, 1]);
+
+        return (
+            <ul className='validity'>
+                <Bar name='Liczba głosów ważnych' width={val(data.votesValidCount)} value={val(data.votesValidCount)} color={colorbrewer.Paired[3][1]}/>
+            </ul>
         );
     }
 });
@@ -82,8 +138,15 @@ var DataSeries = React.createClass({
 var BarChart = React.createClass({
     render: function() {
         return (
-            <Chart width={this.props.width} height={this.props.height}>
-                <DataSeries data={this.props.data} width={this.props.width} height={this.props.height} />
+            <Chart>
+                <h1>{this.props.data.title}</h1>
+                <DataSeries data={this.props.data}/>
+                <Validity data={this.props.data}/>
+                <Attendance data={this.props.data}/>
+                <div className='credits'>
+                    <div className='logo'/>
+                    <div className='logo2'/>
+                </div>
             </Chart>
         );
     }
