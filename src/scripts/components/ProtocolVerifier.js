@@ -52,12 +52,20 @@ var ProtocolVerifier = React.createClass({
             type: "GET",
             url: urlUrls,
             success: function (data) {
+
                 var state = this.state;
+
                 this.state.imageUrls = [];
                 for (var i in data) {
                     state.imageUrls.push(data[i]);
                 }
+
                 this.setState(state);
+
+                if (this.state.imageUrls.length == 0) {
+                    this.fetchProtocol();
+                }
+
             }.bind(this)
         });
     },
@@ -137,10 +145,6 @@ var ProtocolVerifier = React.createClass({
 
                 this.fetchImageUrls(JSONPath.eval(data, '$..links[?(@.rel == "images")].href')[0]);
                 this.fetchBallot(JSONPath.eval(data, '$..links[?(@.rel == "ballot")].href')[0]);
-
-                if (this.state.imageUrls.length == 0) {
-                    this.fetchProtocol();
-                }
 
                 this.setState(state);
 
