@@ -110,6 +110,26 @@ var ProtocolVerifier = React.createClass({
         });
     },
 
+    reportSKIP: function() {
+
+        $.ajax({
+            type: "POST",
+            url: this.state.verificationUrl,
+            headers: {
+                "Authorization":  "Bearer " + this.props.authorization
+            },
+            data: '\"SKIP\"',
+            contentType: "application/json",
+            success: function (data) {
+                this.fetchProtocol();
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(this.state.verificationUrl, status, err.toString());
+                this.fetchProtocol();
+            }.bind(this)
+        });
+    },
+
     componentWillReceiveProps: function(nextProps) {
         if (nextProps.authorization && nextProps.authorization != this.props.authorization) {
             this.fetchProtocol();
@@ -167,8 +187,8 @@ var ProtocolVerifier = React.createClass({
                 <h1>Czy ten protokół jest poprawny ?</h1>
 				<div className="button-container">
 					<input className="tak" type="button" value="TAK" onClick={this.reportV}/>
-                    <input className="inny" type="button" value="INNY" onClick={this.reportX}/>
-                    <input className="nie" type="button" value="NIE" onClick={this.fetchProtocol}/>
+                    <input className="inny" type="button" value="INNY" onClick={this.reportSKIP}/>
+                    <input className="nie" type="button" value="NIE" onClick={this.reportX}/>
                 </div>
 
                 <div className="Images">
