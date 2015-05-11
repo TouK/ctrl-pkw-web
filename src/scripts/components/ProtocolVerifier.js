@@ -62,9 +62,9 @@ var ProtocolVerifier = React.createClass({
 
                 this.setState(state);
 
-                if (this.state.imageUrls.length == 0) {
-                    this.fetchProtocol();
-                }
+                //if (this.state.imageUrls.length == 0) {
+                //    this.fetchProtocol();
+                //}
 
             }.bind(this)
         });
