@@ -149,7 +149,7 @@ var ProtocolVerifier = React.createClass({
             success: function(data) {
 
                 console.log(data.length);
-                data = data[Math.floor((Math.random() * data.length) + 1)];
+                data = data[Math.floor((Math.random() * data.length))];
 
                 var state = this.state;
 
