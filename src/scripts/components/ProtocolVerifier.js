@@ -167,7 +167,8 @@ var ProtocolVerifier = React.createClass({
                 <h1>Czy ten protokół jest poprawny ?</h1>
 				<div className="button-container">
 					<input className="tak" type="button" value="TAK" onClick={this.reportV}/>
-					<input className="nie" type="button" value="NIE" onClick={this.reportX}/>
+                    <input className="inny" type="button" value="INNY" onClick={this.reportX}/>
+                    <input className="nie" type="button" value="NIE" onClick={this.fetchProtocol}/>
                 </div>
 
                 <div className="Images">

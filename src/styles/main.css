@@ -74,7 +74,7 @@ tr:nth-child(even) {
 	width: 70%;
 	margin: 15px 0;
 	display: inline-block;
-	
+
 }
 
 .button-container input[type="button"] {
@@ -139,6 +139,21 @@ tr:nth-child(even) {
 
 .tak:active {
 	border: 4px inset #529E71;
+}
+
+
+.inny {
+    background-color: darksalmon;
+    color: gray;
+    border: 4px outset salmon;
+}
+
+.inny:hover {
+    background-color: orange;
+}
+
+.inny:active {
+    border: 4px inset #529E71;
 }
 
 /* main */
